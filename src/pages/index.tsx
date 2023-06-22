@@ -12,7 +12,9 @@ export const Home: NextPage = () => {
         <link rel='icon' href='/favicon.png' />
       </Head>
 
-      <div>News List</div>
+      <div>
+        <h1 className='text-4xl font-bold underline'>News List</h1>
+      </div>
     </>
   );
 };
