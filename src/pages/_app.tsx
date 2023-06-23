@@ -1,7 +1,14 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+import { NextPage } from 'next';
+//components
+import AppWrapper from 'components/AppWrapper';
 //styles
-import 'assets/styles/globals.css'
+import 'assets/styles/globals.css';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => (
+  <AppWrapper>
+    <Component {...pageProps} />
+  </AppWrapper>
+);
+
+export default MyApp;
