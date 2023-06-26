@@ -8,6 +8,7 @@ import { fetchNewsList } from 'core/functions';
 import { NewsData } from 'core/types';
 //components
 import NewsContent from 'components/NewsContent';
+import SearchPanel from 'components/SearchPanel';
 
 type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -21,6 +22,7 @@ export const Home: NextPage<HomePageProps> = ({ newsList }) => {
 
   return (
     <div className='bg-gradient-to-b from-gray-100 to-gray-300'>
+      <SearchPanel />
       <NewsContent />
     </div>
   );

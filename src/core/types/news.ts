@@ -17,3 +17,7 @@ export type NewsItem = {
   content: string | null;
 };
 
+export enum FETCH_NEWS_TYPE {
+  HEADLINES = 'top-headlines',
+  EVERYTHING = 'everything',
+}

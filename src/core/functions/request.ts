@@ -2,11 +2,11 @@ import { AxiosResponse } from 'axios';
 //API
 import { API } from 'core/API';
 //types
-import { NewsData, NewsItem, NewsListResponse } from 'core/types';
+import { FETCH_NEWS_TYPE, NewsData, NewsItem, NewsListResponse } from 'core/types';
 
-export const fetchNewsList = async (): Promise<NewsData | null> => {
+export const fetchNewsList = async (fetchType = FETCH_NEWS_TYPE.HEADLINES, searchValue?: string): Promise<NewsData | null> => {
   try {
-    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(`top-headlines?country=us`);
+    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, { params: { language: 'en', qInTitle: searchValue } });
 
     if (newsResponse) {
       const newsList: NewsData = {
