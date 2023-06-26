@@ -1,4 +1,4 @@
-import { Action, action, thunk, Thunk } from 'easy-peasy';
+import { Action, action } from 'easy-peasy';
 //types
 import { NewsData } from 'core/types';
 //constants
@@ -11,6 +11,7 @@ export interface NewsModel {
 
 const news: NewsModel = {
   newsList: newsStateInitialValue,
+
   addNewsItems: action((state, payload) => {
     if (payload) {
       const { data, total } = payload;

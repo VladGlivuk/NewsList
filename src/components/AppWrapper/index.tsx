@@ -10,7 +10,7 @@ type AppWrapperProps = {
 
 const AppWrapper: FC<AppWrapperProps> = ({ children }) => {
   return (
-    <div>
+    <div className='flex flex-col w-full h-screen'>
       <Head>
         <title>News List</title>
         <link rel='icon' href='/favicon.png' />

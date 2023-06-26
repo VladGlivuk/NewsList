@@ -11,10 +11,6 @@ const instance = axios.create(axiosConfig);
 
 instance.interceptors.request.use(
   async (req) => {
-    // const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
-    // if (apiKey) req.headers['x-api-key'] = apiKey;
-
     return req;
   },
 
