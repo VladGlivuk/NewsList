@@ -1,13 +1,21 @@
-import { AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
-import { API } from 'core/API';
+//hooks
+import { useStoreActions } from 'store/hooks';
+//functions
+import { fetchNewsList } from 'core/functions';
 //types
-import { NewsData, NewsListResponse } from 'core/types';
+import { NewsData } from 'core/types';
 
 type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export const Home: NextPage<HomePageProps> = ({ newsList }) => {
-  console.log('file: index.tsx:10  newsList:', newsList);
+  const addNews = useStoreActions((actions) => actions.news.addNewsItems);
+
+  useEffect(() => {
+    if (!!newsList?.total) addNews(newsList);
+  }, []);
+
   return <div className='h-screen bg-gradient-to-b from-gray-100 to-gray-300'></div>;
 };
 
@@ -19,28 +27,8 @@ type GetServerSidePropsType = {
 
 export const getServerSideProps: GetServerSideProps<GetServerSidePropsType> = async () => {
   const newsList = await fetchNewsList();
-  console.log("file: index.tsx:22  newsList:", newsList)
 
   return {
     props: { newsList },
   };
-};
-
-const fetchNewsList = async (): Promise<NewsData | null> => {
-  try {
-    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(`top-headlines?country=ua`);
-
-    if (newsResponse) {
-      const newsList: NewsData = {
-        data: newsResponse.data.articles,
-        total: newsResponse.data.totalResults,
-      };
-
-      return newsList;
-    }
-    return null;
-  } catch (error) {
-    console.log('error:', error);
-    return null;
-  }
 };
