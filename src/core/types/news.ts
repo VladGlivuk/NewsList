@@ -1,13 +1,20 @@
+//types
+import { FilterOption } from './filter';
+//constants
+import { EVERYTHING, TOP_HEADLINES } from 'core/constants';
+
 export type NewsData = {
   data: Array<NewsItem>;
   total: number;
 };
 
+type Source = {
+  id: string | null;
+  name: string;
+};
+
 export type NewsItem = {
-  source: {
-    id: string | null;
-    name: string;
-  };
+  source: Source;
   author: string | null;
   title: string;
   description: string | null;
@@ -18,6 +25,11 @@ export type NewsItem = {
 };
 
 export enum FETCH_NEWS_TYPE {
-  HEADLINES = 'top-headlines',
-  EVERYTHING = 'everything',
+  HEADLINES = TOP_HEADLINES,
+  ALL = EVERYTHING,
 }
+
+export type FetchSearchNewsPayload = {
+  searchValue: string;
+  filterValue: FilterOption;
+};

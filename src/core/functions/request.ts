@@ -2,11 +2,15 @@ import { AxiosResponse } from 'axios';
 //API
 import { API } from 'core/API';
 //types
-import { FETCH_NEWS_TYPE, NewsData, NewsItem, NewsListResponse } from 'core/types';
+import { FETCH_NEWS_TYPE, FilterOption, NewsData, NewsItem, NewsListResponse } from 'core/types';
+//constants
+import { filters, TITLE } from 'core/constants';
 
-export const fetchNewsList = async (fetchType = FETCH_NEWS_TYPE.HEADLINES, searchValue?: string): Promise<NewsData | null> => {
+export const fetchNewsList = async (fetchType = FETCH_NEWS_TYPE.HEADLINES, searchValue?: string, filter: FilterOption = TITLE): Promise<NewsData | null> => {
   try {
-    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, { params: { language: 'en', qInTitle: searchValue } });
+    const filterValue = getFilterValue(filter);
+
+    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, { params: { language: 'en', [filterValue]: searchValue } });
 
     if (newsResponse) {
       const newsList: NewsData = {
@@ -21,6 +25,14 @@ export const fetchNewsList = async (fetchType = FETCH_NEWS_TYPE.HEADLINES, searc
   } catch (error) {
     console.log('error:', error);
     return null;
+  }
+
+  function getFilterValue(filter: FilterOption): string {
+    const defaultFilterValue = 'qInTitle';
+
+    const filterKey = Object.entries(filters).find(([_key, value]) => value === filter)?.[0]; // find key by filter value
+
+    return filterKey ?? defaultFilterValue;
   }
 };
 

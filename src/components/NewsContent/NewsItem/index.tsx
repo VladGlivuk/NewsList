@@ -31,12 +31,12 @@ const NewsItem: FC<NewsItemProps> = ({
   const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => event.stopPropagation();
 
   return (
-    <div className='max-w-xs max-h-max h-max bg-sky-200 flex flex-col justify-center items-center p-4 cursor-pointer' onClick={goToNewsItemPage}>
-      <span className='line-clamp-2 font-bold text-xl leading-6'>{title}</span>
+    <div className='max-w-xs h-72 bg-sky-200 flex flex-col justify-center items-center p-4 cursor-pointer' onClick={goToNewsItemPage}>
+      <span className='line-clamp-2 font-bold text-lg leading-6'>{title}</span>
 
       {urlToImage && isValidImageUrl && (
         <div className='flex justify-center items-center'>
-          <Image src={urlToImage} alt={url} width={260} height={78} />
+          <Image src={urlToImage} alt={url} width={276} height={190} className='rounded-lg' />
         </div>
       )}
 

@@ -1,4 +1,6 @@
 import { ChangeEvent, FC } from 'react';
+//styles
+import { defaultLabelStyles } from 'shared/styles';
 
 type InputProps = {
   value: string;
@@ -15,8 +17,8 @@ const Input: FC<InputProps> = ({ title, value, id, placeholder, onChange }) => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full'>
-      <label className='font-medium text-lg text-gray-800' htmlFor={id}>
+    <div className='flex flex-col justify-center items-center w-full gap-x-4'>
+      <label className={defaultLabelStyles} htmlFor={id}>
         {title}
       </label>
 

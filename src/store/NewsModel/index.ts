@@ -1,16 +1,18 @@
-import { FETCH_NEWS_TYPE } from './../../core/types/news';
 import { Action, Thunk, action, thunk } from 'easy-peasy';
 //types
-import { NewsData } from 'core/types';
+import { FetchSearchNewsPayload, NewsData } from 'core/types';
+//constants
+import { fetchNewsList } from 'core/functions';
 //constants
 import { newsStateInitialValue } from 'core/constants';
-import { fetchNewsList } from 'core/functions';
+//helpers
+import { getSearchNewsFetchType } from './helpers';
 
 export interface NewsModel {
   newsList: NewsData;
   addNewsItems: Action<NewsModel, NewsData | null>;
   setFilteredItems: Action<NewsModel, NewsData | null>;
-  fetchSearchNews: Thunk<NewsModel, string>;
+  fetchSearchNews: Thunk<NewsModel, FetchSearchNewsPayload>;
 }
 
 const news: NewsModel = {
@@ -30,7 +32,11 @@ const news: NewsModel = {
   }),
 
   fetchSearchNews: thunk(async (actions, payload) => {
-    const newNewsList = await fetchNewsList(FETCH_NEWS_TYPE.EVERYTHING, payload);
+    const { searchValue, filterValue } = payload;
+
+    const fetchNewsArguments = getSearchNewsFetchType(searchValue);
+
+    const newNewsList = await fetchNewsList(fetchNewsArguments, searchValue, filterValue);
 
     actions.setFilteredItems(newNewsList);
   }),
