@@ -2,15 +2,20 @@ import { AxiosResponse } from 'axios';
 //API
 import { API } from 'core/API';
 //types
-import { FETCH_NEWS_TYPE, FilterOption, NewsData, NewsItem, NewsListResponse } from 'core/types';
+import { FETCH_NEWS_TYPE, FilterLanguage, FilterOption, NewsData, NewsItem, NewsListResponse } from 'core/types';
 //constants
-import { filters, TITLE } from 'core/constants';
+import { EN, filters, TITLE } from 'core/constants';
 
-export const fetchNewsList = async (fetchType = FETCH_NEWS_TYPE.HEADLINES, searchValue?: string, filter: FilterOption = TITLE): Promise<NewsData | null> => {
+export const fetchNewsList = async (
+  fetchType = FETCH_NEWS_TYPE.HEADLINES,
+  searchValue?: string,
+  filter: FilterOption = TITLE,
+  filterLanguage: FilterLanguage = EN
+): Promise<NewsData | null> => {
   try {
     const filterValue = getFilterValue(filter);
 
-    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, { params: { language: 'en', [filterValue]: searchValue } });
+    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, { params: { language: filterLanguage, [filterValue]: searchValue } });
 
     if (newsResponse) {
       const newsList: NewsData = {

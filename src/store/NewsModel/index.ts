@@ -32,11 +32,11 @@ const news: NewsModel = {
   }),
 
   fetchSearchNews: thunk(async (actions, payload) => {
-    const { searchValue, filterValue } = payload;
+    const { searchValue, filterValue, filterLanguage } = payload;
 
     const fetchNewsArguments = getSearchNewsFetchType(searchValue);
 
-    const newNewsList = await fetchNewsList(fetchNewsArguments, searchValue, filterValue);
+    const newNewsList = await fetchNewsList(fetchNewsArguments, searchValue, filterValue, filterLanguage);
 
     actions.setFilteredItems(newNewsList);
   }),

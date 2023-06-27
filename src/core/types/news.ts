@@ -1,5 +1,6 @@
 //types
 import { FilterOption } from './filter';
+import { FilterLanguage } from './language';
 //constants
 import { EVERYTHING, TOP_HEADLINES } from 'core/constants';
 
@@ -32,4 +33,5 @@ export enum FETCH_NEWS_TYPE {
 export type FetchSearchNewsPayload = {
   searchValue: string;
   filterValue: FilterOption;
+  filterLanguage: FilterLanguage;
 };
