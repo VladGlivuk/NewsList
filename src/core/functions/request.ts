@@ -69,8 +69,8 @@ export const fetchInitialNewsList = async (): Promise<NewsData | null> => {
     const newsResponse: AxiosResponse<NewsListResponse> = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${FETCH_NEWS_TYPE.HEADLINES}`, {
       params: { language },
       headers: {
-        baseURL: process.env.NEXT_PUBLIC_API_URL,
         ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
+        'Content-Type': 'application/json',
       },
     });
 
