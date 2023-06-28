@@ -2,10 +2,6 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
-    'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
-  },
 };
 
 const instance = axios.create(axiosConfig);

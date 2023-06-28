@@ -4,9 +4,9 @@ import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { useStoreActions, useStoreState } from 'store/hooks';
 import { useEffectNoFirstMount, useInfiniteScroll } from 'core/hooks';
 //functions
-import { fetchInitialNewsList, getIsLastPage, getSearchNewsFetchType } from 'core/functions';
+import { fetchInitialNewsList, fetchNewsList, getIsLastPage, getSearchNewsFetchType } from 'core/functions';
 //types
-import { NewsData } from 'core/types';
+import { FETCH_NEWS_TYPE, NewsData } from 'core/types';
 //components
 import NewsContent from 'components/NewsContent';
 import SearchPanel from 'components/SearchPanel';
@@ -27,6 +27,7 @@ export const Home: NextPage<HomePageProps> = ({ fetchedNewsList }) => {
   const { searchValue, filterValue, filterLanguage } = useStoreState((store) => store.filters);
 
   useEffect(() => {
+    console.log('file: index.tsx:18  fetchedNewsList:', fetchedNewsList);
     if (!total && !!fetchedNewsList?.total) addNews(fetchedNewsList);
   }, []);
 
@@ -66,7 +67,7 @@ type GetServerSidePropsType = {
   fetchedNewsList: NewsData | null;
 };
 
-const getServerSideProps: GetServerSideProps<GetServerSidePropsType> = async () => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePropsType> = async () => {
   const fetchedNewsList = await fetchInitialNewsList();
 
   return {
