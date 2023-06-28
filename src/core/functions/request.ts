@@ -70,7 +70,7 @@ export const fetchInitialNewsList = async (): Promise<NewsData | null> => {
       params: { language },
       headers: {
         ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
-        'Content-Type': 'application/json',
+        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
       },
     });
 
