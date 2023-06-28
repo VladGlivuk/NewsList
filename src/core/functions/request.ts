@@ -1,6 +1,8 @@
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 //API
 import { API } from 'core/API';
+//functions
+import { getFilterLanguageInitialValue } from './language';
 //types
 import { FETCH_NEWS_TYPE, FilterLanguage, FilterOption, NewsData, NewsItem, NewsListResponse } from 'core/types';
 //constants
@@ -8,7 +10,7 @@ import { defaultFilterValue, defaultPageSize, EN, filters, TITLE } from 'core/co
 
 export const fetchNewsList = async (
   fetchType = FETCH_NEWS_TYPE.HEADLINES,
-  searchValue?: string,
+  searchValue: string,
   filter: FilterOption = TITLE,
   filterLanguage: FilterLanguage = EN,
   page = 1,
@@ -56,6 +58,34 @@ export const fetchNewsItemByTitle = async (title: string): Promise<NewsItem | nu
     return null;
   } catch (error) {
     console.log('error:', error);
+    return null;
+  }
+};
+
+export const fetchInitialNewsList = async (): Promise<NewsData | null> => {
+  try {
+    const language = getFilterLanguageInitialValue();
+
+    const newsResponse: AxiosResponse<NewsListResponse> = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${FETCH_NEWS_TYPE.HEADLINES}`, {
+      params: { language },
+      headers: {
+        baseURL: process.env.NEXT_PUBLIC_API_URL,
+        ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
+      },
+    });
+
+    if (newsResponse) {
+      const newsList: NewsData = {
+        data: newsResponse.data.articles,
+        total: newsResponse.data.totalResults,
+      };
+
+      return newsList;
+    }
+
+    return null;
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };

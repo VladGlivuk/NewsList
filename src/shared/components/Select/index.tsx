@@ -5,10 +5,11 @@ import { defaultLabelStyles } from 'shared/styles';
 type SelectProps = {
   options: Array<string>;
   label: string;
+  value?: string;
   onChange: (value: string) => void;
 };
 
-const Select: FC<SelectProps> = ({ options, label, onChange }) => {
+const Select: FC<SelectProps> = ({ options, label, onChange, value }) => {
   const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     onChange(value);
@@ -20,7 +21,7 @@ const Select: FC<SelectProps> = ({ options, label, onChange }) => {
         {label}
       </label>
 
-      <select className='rounded-lg text-base h-8 cursor-pointer capitalize' onChange={onChangeHandler} id={label}>
+      <select className='rounded-lg text-base h-8 cursor-pointer capitalize' onChange={onChangeHandler} id={label} value={value}>
         {options.map((option, index) => (
           <option className='whitespace-normal text-base' value={option} key={option + index}>
             {option}

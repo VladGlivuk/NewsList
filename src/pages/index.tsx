@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import { useStoreActions, useStoreState } from 'store/hooks';
 import { useEffectNoFirstMount, useInfiniteScroll } from 'core/hooks';
 //functions
-import { fetchNewsList, getIsLastPage, getSearchNewsFetchType } from 'core/functions';
+import { fetchInitialNewsList, getIsLastPage, getSearchNewsFetchType } from 'core/functions';
 //types
 import { NewsData } from 'core/types';
 //components
@@ -66,8 +66,8 @@ type GetServerSidePropsType = {
   fetchedNewsList: NewsData | null;
 };
 
-export const getServerSideProps: GetServerSideProps<GetServerSidePropsType> = async () => {
-  const fetchedNewsList = await fetchNewsList();
+const getServerSideProps: GetServerSideProps<GetServerSidePropsType> = async () => {
+  const fetchedNewsList = await fetchInitialNewsList();
 
   return {
     props: { fetchedNewsList },

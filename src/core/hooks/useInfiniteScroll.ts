@@ -11,7 +11,7 @@ export const useInfiniteScroll = (
   fetchType = FETCH_NEWS_TYPE.HEADLINES,
   page: number,
   setPage: Dispatch<SetStateAction<number>>,
-  searchValue?: string,
+  searchValue: string,
   filter: FilterOption = TITLE,
   filterLanguage: FilterLanguage = EN
 ): UseInfiniteScroll => {

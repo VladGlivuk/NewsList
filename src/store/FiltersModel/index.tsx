@@ -1,12 +1,12 @@
 import { Action, action } from 'easy-peasy';
 //functions
-import { isUserSideRendering } from 'core/functions';
+import { isUserSideRendering, getFilterLanguageInitialValue } from 'core/functions';
 //types
 import { FilterLanguage, FilterOption } from 'core/types';
 //constants
 import { FILTER, LANGUAGE, SEARCH } from 'core/constants';
 //helpers
-import { getFilterInitialValue, getFilterLanguageInitialValue, getSearchInitialValue } from './helpers';
+import { getFilterInitialValue, getSearchInitialValue } from './helpers';
 
 export interface FiltersModel {
   searchValue: string;

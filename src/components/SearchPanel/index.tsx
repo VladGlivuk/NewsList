@@ -47,8 +47,8 @@ const SearchPanel: FC = () => {
   return (
     <div className='flex justify-center items-center m-4 flex-wrap gap-y-4'>
       <div className='flex justify-center items-center gap-y-4 flex-wrap'>
-        <Select options={allFilterLanguages} label='Language: ' onChange={onFilterLanguageChange} />
-        <Select options={filterOptions} label='Pick the filter value' onChange={onFilterSelectChange} />
+        <Select options={allFilterLanguages} label='Language: ' onChange={onFilterLanguageChange} value={filterLanguage} />
+        <Select options={filterOptions} label='Pick the filter value' onChange={onFilterSelectChange} value={filterValue} />
       </div>
 
       <Input value={searchValue} id='searchInput' onChange={onSearchInputValueChange} placeholder='Enter the search value here' />
