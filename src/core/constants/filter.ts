@@ -1,6 +1,8 @@
 //types
 import { FilterOption, FiltersType } from 'core/types';
 
+export const defaultFilterValue = 'qInTitle';
+
 export const TITLE = 'title';
 export const KEYWORDS = 'keywords';
 export const SOURCE = 'source';

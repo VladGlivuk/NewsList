@@ -1,33 +1,48 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 //hooks
-import { useDebounceValue } from 'core/hooks';
-import { useStoreActions } from 'store/hooks';
+import { useDebounceValue, useEffectNoFirstMount } from 'core/hooks';
+import { useStoreActions, useStoreState } from 'store/hooks';
 //types
 import { FilterLanguage, FilterOption } from 'core/types';
 //constants
-import { EN, TITLE, allFilterLanguages, filterOptions } from 'core/constants';
+import { allFilterLanguages, filterOptions } from 'core/constants';
 //components
 import Input from 'shared/components/Input';
 import Select from 'shared/components/Select';
 
 const SearchPanel: FC = () => {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [filterValue, setFilterValue] = useState<FilterOption>(TITLE);
-  const [filterLanguage, setFilterLanguage] = useState<FilterLanguage>(EN);
+  const defaultSearchValue = useStoreState((store) => store.filters.searchValue);
+  const defaultFilterValue = useStoreState((store) => store.filters.filterValue);
+  const defaultFilterLanguage = useStoreState((store) => store.filters.filterLanguage);
+
+  const { fetchSearchNews } = useStoreActions((store) => store.news);
+  const { setNewSearchValue, setNewFilterValue, setNewFilterLanguage } = useStoreActions((store) => store.filters);
+
+  const [searchValue, setSearchValue] = useState<string>(defaultSearchValue);
+  const [filterValue, setFilterValue] = useState<FilterOption>(defaultFilterValue);
+  const [filterLanguage, setFilterLanguage] = useState<FilterLanguage>(defaultFilterLanguage);
 
   const debouncedFilterValue = useDebounceValue(searchValue, 500);
 
-  const fetchSearchNews = useStoreActions((store) => store.news.fetchSearchNews);
-
-  useEffect(() => {
-    fetchSearchNews({ searchValue, filterValue, filterLanguage });
+  useEffectNoFirstMount(() => {
+    const fetchSearchNewsValues = { searchValue, filterValue, filterLanguage };
+    fetchSearchNews(fetchSearchNewsValues);
   }, [debouncedFilterValue, filterValue, filterLanguage]);
 
-  const onSearchInputValueChange = (searchValue: string) => setSearchValue(searchValue);
+  const onSearchInputValueChange = (searchValue: string) => {
+    setSearchValue(searchValue);
+    setNewSearchValue(searchValue);
+  };
 
-  const onFilterSelectChange = (selectValue: string) => setFilterValue(selectValue as FilterOption);
+  const onFilterSelectChange = (selectValue: string) => {
+    setFilterValue(selectValue as FilterOption);
+    setNewFilterValue(selectValue as FilterOption);
+  };
 
-  const onFilterLanguageChange = (filterLanguage: string) => setFilterLanguage(filterLanguage as FilterLanguage);
+  const onFilterLanguageChange = (filterLanguage: string) => {
+    setFilterLanguage(filterLanguage as FilterLanguage);
+    setNewFilterLanguage(filterLanguage as FilterLanguage);
+  };
 
   return (
     <div className='flex justify-center items-center m-4 flex-wrap gap-y-4'>

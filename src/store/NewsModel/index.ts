@@ -1,12 +1,10 @@
 import { Action, Thunk, action, thunk } from 'easy-peasy';
+//functions
+import { fetchNewsList, getSearchNewsFetchType } from 'core/functions';
 //types
 import { FetchSearchNewsPayload, NewsData } from 'core/types';
 //constants
-import { fetchNewsList } from 'core/functions';
-//constants
 import { newsStateInitialValue } from 'core/constants';
-//helpers
-import { getSearchNewsFetchType } from './helpers';
 
 export interface NewsModel {
   newsList: NewsData;

@@ -2,12 +2,12 @@ import { FC, MouseEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+//functions
+import { getIsUrlImageValid } from 'core/functions';
 //types
 import { NewsItem } from 'core/types';
 //constants
-import { getNewsTitleQuery } from 'core/constants';
-//functions
-import { getIsUrlImageValid } from 'core/functions';
+import { NEWS_PAGE, getNewsTitleQuery } from 'core/constants';
 
 type NewsItemProps = { news: NewsItem };
 
@@ -25,7 +25,7 @@ const NewsItem: FC<NewsItemProps> = ({
 
   const goToNewsItemPage = () => {
     const query = getNewsTitleQuery(router.query, title);
-    router.push({ pathname: '/news', query });
+    router.push({ pathname: NEWS_PAGE, query });
   };
 
   const onLinkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => event.stopPropagation();
@@ -36,7 +36,7 @@ const NewsItem: FC<NewsItemProps> = ({
 
       {urlToImage && isValidImageUrl && (
         <div className='flex justify-center items-center'>
-          <Image src={urlToImage} alt={url} width={276} height={190} className='rounded-lg' />
+          <Image src={urlToImage} alt={url} width={300} height={160} className='rounded-lg object-contain max-h-44' />
         </div>
       )}
 
