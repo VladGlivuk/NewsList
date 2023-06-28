@@ -27,7 +27,6 @@ export const Home: NextPage<HomePageProps> = ({ fetchedNewsList }) => {
   const { searchValue, filterValue, filterLanguage } = useStoreState((store) => store.filters);
 
   useEffect(() => {
-    console.log('file: index.tsx:18  fetchedNewsList:', fetchedNewsList);
     if (!total && !!fetchedNewsList?.total) addNews(fetchedNewsList);
   }, []);
 
