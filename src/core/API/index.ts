@@ -21,12 +21,9 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   async (res) => {
-    // to see response
-    console.log('API response', res);
     return res;
   },
   async (error) => {
-    // to see error
     console.log(error);
   }
 );
