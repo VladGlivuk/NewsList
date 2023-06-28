@@ -3,6 +3,10 @@ import { FilterOption, FiltersType } from 'core/types';
 
 export const defaultFilterValue = 'qInTitle';
 
+export const LANGUAGE = 'language';
+export const FILTER = 'filter';
+export const SEARCH = 'search';
+
 export const TITLE = 'title';
 export const KEYWORDS = 'keywords';
 export const SOURCE = 'source';

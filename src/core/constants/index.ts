@@ -4,3 +4,4 @@ export * from './api';
 export * from './store';
 export * from './filter';
 export * from './language';
+export * from './data';

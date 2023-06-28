@@ -1,8 +1,12 @@
 import { Action, action } from 'easy-peasy';
+//functions
+import { isUserSideRendering } from 'core/functions';
 //types
 import { FilterLanguage, FilterOption } from 'core/types';
 //constants
-import { EN, TITLE } from 'core/constants';
+import { FILTER, LANGUAGE, SEARCH } from 'core/constants';
+//helpers
+import { getFilterInitialValue, getFilterLanguageInitialValue, getSearchInitialValue } from './helpers';
 
 export interface FiltersModel {
   searchValue: string;
@@ -14,20 +18,23 @@ export interface FiltersModel {
 }
 
 const filters: FiltersModel = {
-  searchValue: '',
-  filterValue: TITLE,
-  filterLanguage: EN,
+  searchValue: getSearchInitialValue(),
+  filterValue: getFilterInitialValue(),
+  filterLanguage: getFilterLanguageInitialValue(),
 
   setNewSearchValue: action((state, payload) => {
     state.searchValue = payload;
+    isUserSideRendering() && localStorage.setItem(SEARCH, payload);
   }),
 
   setNewFilterValue: action((state, payload) => {
     state.filterValue = payload;
+    isUserSideRendering() && localStorage.setItem(FILTER, payload);
   }),
 
   setNewFilterLanguage: action((state, payload) => {
     state.filterLanguage = payload;
+    isUserSideRendering() && localStorage.setItem(LANGUAGE, payload);
   }),
 };
 
