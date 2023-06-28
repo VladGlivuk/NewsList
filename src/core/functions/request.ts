@@ -19,7 +19,7 @@ export const fetchNewsList = async (
   try {
     const filterValue = getFilterValue(filter);
 
-    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(`${fetchType}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`, {
+    const newsResponse: AxiosResponse<NewsListResponse> = await API.get(fetchType, {
       params: { language: filterLanguage, [filterValue]: searchValue, pageSize, page },
     });
 
@@ -66,12 +66,12 @@ export const fetchInitialNewsList = async (): Promise<NewsData | null> => {
   try {
     const language = getFilterLanguageInitialValue();
 
-    const newsResponse: AxiosResponse<NewsListResponse> = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}${FETCH_NEWS_TYPE.HEADLINES}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,
-      {
-        params: { language },
-      }
-    );
+    const newsResponse: AxiosResponse<NewsListResponse> = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${FETCH_NEWS_TYPE.HEADLINES}`, {
+      params: { language },
+      headers: {
+        ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
+      },
+    });
 
     if (newsResponse) {
       const newsList: NewsData = {

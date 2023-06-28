@@ -2,6 +2,9 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+    ['x-api-key']: process.env.NEXT_PUBLIC_API_KEY,
+  },
 };
 
 const instance = axios.create(axiosConfig);
